@@ -16,7 +16,7 @@ namespace Naidis_IKTpv25_Windows_Forms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Avavorm());
+            Application.Run(new AvaVorm());
         }
     }
 }

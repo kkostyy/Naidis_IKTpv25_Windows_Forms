@@ -1,6 +1,6 @@
 ﻿namespace Naidis_IKTpv25_Windows_Forms
 {
-    partial class Avavorm
+    partial class AvaVorm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,21 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // Avavorm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 589);
-            this.Name = "Avavorm";
-            this.Text = "Elemendid";
-            this.TransparencyKey = System.Drawing.Color.Transparent;
-            this.ResumeLayout(false);
-
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Text = "Form1";
         }
 
         #endregion
     }
 }
 
+            

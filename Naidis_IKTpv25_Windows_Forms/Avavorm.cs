@@ -254,22 +254,6 @@ namespace Naidis_IKTpv25_Windows_Forms
                 mruut2.Text = "Peida pilt";
             }
         }
-        //private void AvaBrauser(object sender, EventArgs e)
-        //{
-        //    Browser browser = new Browser();
-        //    TabPage vahekaart = sender as TabPage;
-        //    if (vahekaart == null)
-        //    {
-        //        MessageBox.Show("Error");
-        //        return;
-        //    }
-
-        //    WebBrowser browserData = vahekaart.Controls[0] as WebBrowser;
-        //    MessageBox.Show(browserData.Url.ToString());
-
-        //    browser.ShowDialog();
-
-        //}
 
         private void tabs_MouseDoubleClick(object sender, MouseEventArgs e)
         {

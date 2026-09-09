@@ -1,6 +1,6 @@
 ﻿namespace Naidis_IKTpv25_Windows_Forms
 {
-    partial class Browzer
+    partial class Browser
     {
         /// <summary>
         /// Required designer variable.

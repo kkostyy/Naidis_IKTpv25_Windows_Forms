@@ -52,6 +52,12 @@
     <Compile Include="Avavorm.Designer.cs">
       <DependentUpon>Avavorm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Browzer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Browzer.Designer.cs">
+      <DependentUpon>Browzer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Avavorm.resx">

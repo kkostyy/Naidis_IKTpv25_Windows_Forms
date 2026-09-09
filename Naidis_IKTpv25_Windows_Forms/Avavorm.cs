@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Naidis_IKTpv25_Windows_Forms
 {
-    public partial class AvaVorm : System.Windows.Forms.Form
+    public partial class AvaVorm : Form
     {
         TreeView tree;
         Button nupp;
@@ -63,7 +63,7 @@ namespace Naidis_IKTpv25_Windows_Forms
 
             pilt.Location = new Point(400, 300);
             pilt.Image = Image.FromFile(@"C:\Users\opilane\source\repos\Naidis_IKTpv25_Windows_Forms\Naidis_IKTpv25_Windows_Forms\Pildid\литвин на кондиции.jpg");
-            pilt.Size = new Size (1000,1000);
+            pilt.Size = new Size(100, 100);
 
             Controls.Add(tree);
         }
@@ -143,6 +143,7 @@ namespace Naidis_IKTpv25_Windows_Forms
                 brauser.ScriptErrorsSuppressed = true;
                 brauser.Url = new Uri("https://techno.ee/");
                 tab1.Controls.Add(brauser);
+                //tab1.DoubleClick += AvaBrauser;
 
                 tab2 = new TabPage("Пасьянс косынка");
                 WebBrowser brauser2 = new WebBrowser();
@@ -150,12 +151,54 @@ namespace Naidis_IKTpv25_Windows_Forms
                 brauser2.ScriptErrorsSuppressed = true;
                 brauser2.Url = new Uri("https://razlozhi.ru/patience-sol");
                 tab2.Controls.Add(brauser2);
+                //tab2.DoubleClick += AvaBrauser;
 
-                tab3 = new TabPage("Github");
+                tab3 = new TabPage("+");
+                tabs.SelectedIndexChanged += (s, arg) =>
+                {
+                    if (tabs.SelectedTab == tab3)
+                    {
+                        string uuskardinimi = Interaction.InputBox("Sisesta uue vahekaardi nimi: ", "Uus vahekaart", "");
+                        if (string.IsNullOrWhiteSpace(uuskardinimi))
+                        {
+                            MessageBox.Show("Vahekaardi nimi ei tohi olla tühi");
+                            tabs.SelectedTab = tab1;
+                            return;
+                        }
+                        else
+                        {
+                            TabPage uusVahekaart = new TabPage(uuskardinimi);
+                            string url = Interaction.InputBox("Sisestage url: ", "Uus vahekaart", "https://www.example.com");
+                            if (string.IsNullOrWhiteSpace(url))
+                            {
+                                MessageBox.Show("url ei tohi olla tühi");
+                                tabs.SelectedTab = tab1;
+                                return;
+                            }
+                            else
+                            {
+                                WebBrowser browser = new WebBrowser();
+
+                                browser.Dock = DockStyle.Fill;
+                                browser.ScriptErrorsSuppressed = true;
+                                browser.Url = new Uri(url);
+
+                                uusVahekaart.Controls.Add(browser);
+                                //uusVahekaart.DoubleClick += AvaBrauser;
+
+                                tabs.TabPages.Insert(tabs.TabCount - 1, uusVahekaart);
+
+                                tabs.SelectedTab = uusVahekaart;
+                            }
+                        }
+                    }
+                };
 
                 tabs.TabPages.Add(tab1);
                 tabs.TabPages.Add(tab2);
                 tabs.TabPages.Add(tab3);
+                tabs.MouseDoubleClick += tabs_MouseDoubleClick;
+
                 Controls.Add(tabs);
             }
         }
@@ -208,6 +251,47 @@ namespace Naidis_IKTpv25_Windows_Forms
             {
                 pilt.Visible = false;
                 mruut2.Text = "Peida pilt";
+            }
+        }
+        //private void AvaBrauser(object sender, EventArgs e)
+        //{
+        //    Browser browser = new Browser();
+        //    TabPage vahekaart = sender as TabPage;
+        //    if (vahekaart == null)
+        //    {
+        //        MessageBox.Show("Error");
+        //        return;
+        //    }
+
+        //    WebBrowser browserData = vahekaart.Controls[0] as WebBrowser;
+        //    MessageBox.Show(browserData.Url.ToString());
+
+        //    browser.ShowDialog();
+
+        //}
+
+        private void tabs_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Browser browser = new Browser();
+
+            browser.Show();
+
+            TabControl tabs = sender as TabControl;
+
+            for (int i = 0; i < tabs.TabPages.Count; i++)
+            {
+                Rectangle rect = tabs.GetTabRect(i);
+
+                if (rect.Contains(e.Location))
+                {
+                    TabPage vahekaart = tabs.TabPages[i];
+
+                    //WebBrowser browserData = vahekaart.Controls[0] as WebBrowser;
+                    //MessageBox.Show(browserData.Url.ToString());
+                    browser.tabs.TabPages.Insert(browser.tabs.TabCount - 1, vahekaart);
+
+                    break;
+                }
             }
         }
     }

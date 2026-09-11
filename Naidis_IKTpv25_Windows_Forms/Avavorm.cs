@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
+using Microsoft.Web.WebView2.WinForms;
+using Microsoft.Web.WebView2.Core;
 
 namespace Naidis_IKTpv25_Windows_Forms
 {
@@ -137,7 +140,7 @@ namespace Naidis_IKTpv25_Windows_Forms
 
         }
 
-        private void Tree_AfterSelect(object sender, TreeViewEventArgs e)
+        private async void Tree_AfterSelect(object sender, TreeViewEventArgs e)
         {
             // Kui SelectedNode pannakse koodis null-iks (vt allpool), tuleb AfterSelect
             // uuesti käivitatud, aga seekord e.Node == null. Ilma selle kontrollita
@@ -224,24 +227,24 @@ namespace Naidis_IKTpv25_Windows_Forms
             {
                 tabs = new TabControl();
                 tabs.Location = new Point(680, 200);
-                tabs.Size = new Size(440, 260);
+                tabs.Size = new Size(1000,500);
+
                 tab1 = new TabPage("Techno+TLN");
-                System.Windows.Forms.WebBrowser brauser = new System.Windows.Forms.WebBrowser();
-                brauser.Dock = DockStyle.Fill;
-                brauser.ScriptErrorsSuppressed = true;
-                brauser.Url = new Uri("https://www.techno.ee/");
-                tab1.Controls.Add(brauser);
-
                 tab2 = new TabPage("Пасьянс косынка");
-                System.Windows.Forms.WebBrowser brauser2 = new System.Windows.Forms.WebBrowser();
-                brauser2.Dock = DockStyle.Fill;
-                brauser2.ScriptErrorsSuppressed = true;
-                brauser2.Url = new Uri("https://razlozhi.ru/patience-sol");
-                tab2.Controls.Add(brauser2);
-                //tab2.DoubleClick += AvaBrauser;
-
                 tab3 = new TabPage("+");
-                tabs.SelectedIndexChanged += (s, arg) =>
+
+                tabs.TabPages.Add(tab1);
+                tabs.TabPages.Add(tab2);
+                tabs.TabPages.Add(tab3);
+                Controls.Add(tabs);
+                tree.SelectedNode = null;
+
+                // WebView2 kasutab Edge/Chrome mootorit (mitte vana Internet Explorerit),
+                // seega laadib tänapäevaseid lehti usaldusväärselt. Loomine on asünkroonne.
+                await LisaBrauserVahekaardile(tab1, "https://www.techno.ee/");
+                await LisaBrauserVahekaardile(tab2, "https://razlozhi.ru/patience-sol");
+
+                tabs.SelectedIndexChanged += async (s, arg) =>
                 {
                     if (tabs.SelectedTab == tab3)
                     {
@@ -283,27 +286,18 @@ namespace Naidis_IKTpv25_Windows_Forms
                             return;
                         }
                         TabPage uusVahekaart = new TabPage(uuskaardinimi);
-                        brauser = new System.Windows.Forms.WebBrowser();
-                        brauser.Dock = DockStyle.Fill;
-                        brauser.ScriptErrorsSuppressed = true; // Peidab IE skriptitõrgete
+                        tabs.TabPages.Insert(tabs.TabCount - 1, uusVahekaart);
+                        tabs.SelectedTab = uusVahekaart;
                         try
                         {
-                            brauser.Url = new Uri(veebiaadress);
+                            await LisaBrauserVahekaardile(uusVahekaart, veebiaadress);
                         }
                         catch (UriFormatException)
                         {
                             MessageBox.Show("Vigane veebiaadress! Avatakse tühi leht.");
                         }
-                        uusVahekaart.Controls.Add(brauser);
-                        tabs.TabPages.Insert(tabs.TabCount - 1, uusVahekaart);
-                        tabs.SelectedTab = uusVahekaart;
                     }
                 };
-                tabs.TabPages.Add(tab1);
-                tabs.TabPages.Add(tab2);
-                tabs.TabPages.Add(tab3);
-                Controls.Add(tabs);
-                tree.SelectedNode = null;
             }
             else if (e.Node.Text == "ListBox")
             {
@@ -345,6 +339,29 @@ namespace Naidis_IKTpv25_Windows_Forms
 
                 menu.MenuItems.Add(menuFile);
                 Menu = menu;
+            }
+        }
+
+        /// <summary>
+        /// Loob WebView2 kontrolli (Edge/Chrome mootor), lisab selle antud vahekaardile
+        /// ja avab soovitud aadressi. WebView2 initsialiseerimine on asünkroonne (vajab
+        /// EnsureCoreWebView2Async väljakutset), erinevalt vanast WebBrowser kontrollist.
+        /// </summary>
+        private async Task LisaBrauserVahekaardile(TabPage vahekaart, string url)
+        {
+            WebView2 brauser = new WebView2 { Dock = DockStyle.Fill };
+            vahekaart.Controls.Add(brauser);
+            try
+            {
+                await brauser.EnsureCoreWebView2Async(null);
+                brauser.CoreWebView2.Navigate(url);
+            }
+            catch (WebView2RuntimeNotFoundException)
+            {
+                MessageBox.Show(
+                    "WebView2 käitusaeg (Runtime) pole arvutisse paigaldatud.\n" +
+                    "Laadi see alla: https://developer.microsoft.com/microsoft-edge/webview2/",
+                    "WebView2 puudub", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

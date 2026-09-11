@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -25,11 +25,12 @@ namespace Naidis_IKTpv25_Windows_Forms
 
         public Avavorm()
         {
-            Height = 600;
-            Width = 1000;
+            Height = 760;
+            Width = 1180;
             Text = "Naidis IKTpv25 Windows Forms";
             tree = new TreeView();
             tree.Dock = DockStyle.Left;
+            tree.Width = 180;
             tree.AfterSelect += Tree_AfterSelect;
 
             TreeNode tn = new TreeNode("Elemendid");
@@ -48,14 +49,14 @@ namespace Naidis_IKTpv25_Windows_Forms
             //nupp, silt ja pilt
             nupp = new Button();
             nupp.Text = "Vajuta mind";
-            nupp.Location = new Point(300, 100);
-            nupp.Height = 50;
+            nupp.Location = new Point(200, 15);
+            nupp.Height = 40;
             nupp.Width = 100;
             nupp.Click += (sender, e) => { MessageBox.Show("Nuppu vajutati!"); };
 
             silt = new Label();
             silt.Text = "See on silt";
-            silt.Location = new Point(300, 150);
+            silt.Location = new Point(200, 65);
             silt.Size = new Size(200, 30);
             silt.Font = new Font("Arial", 16, FontStyle.Bold);
             silt.AutoSize = true;
@@ -64,7 +65,7 @@ namespace Naidis_IKTpv25_Windows_Forms
 
             pilt = new PictureBox();
             pilt.Image = Image.FromFile(@"C:\Users\opilane\source\repos\Naidis_IKTpv25_Windows_Forms\Naidis_IKTpv25_Windows_Forms\Pildid\литвин на кондиции.jpg");
-            pilt.Location = new Point(300, 200);
+            pilt.Location = new Point(200, 105);
             pilt.Size = new Size(200, 200);
             pilt.SizeMode = PictureBoxSizeMode.StretchImage;
             pilt.DoubleClick += Pilt_DoubleClick;
@@ -75,8 +76,8 @@ namespace Naidis_IKTpv25_Windows_Forms
             rakendusteGrupp = new GroupBox
             {
                 Text = "Kolm rakendust",
-                Location = new Point(750, 20),
-                Size = new Size(220, 170)
+                Location = new Point(680, 15),
+                Size = new Size(260, 170)
             };
 
             pildivaatajaNupp = new Button
@@ -157,11 +158,13 @@ namespace Naidis_IKTpv25_Windows_Forms
             {
                 mruut1 = new CheckBox();
                 mruut1.Text = "Tee väiksemaks";
-                mruut1.Location = new Point(200, 300);
+                mruut1.AutoSize = true;
+                mruut1.Location = new Point(440, 15);
                 mruut1.CheckedChanged += Mruut_CheckedChanged;
                 mruut2 = new CheckBox();
                 mruut2.Text = "Näita pilt";
-                mruut2.Location = new Point(200, 350);
+                mruut2.AutoSize = true;
+                mruut2.Location = new Point(440, 45);
                 mruut2.CheckedChanged += Mruut2_CheckedChanged;
                 Controls.Add(mruut1);
                 Controls.Add(mruut2);
@@ -171,11 +174,13 @@ namespace Naidis_IKTpv25_Windows_Forms
             {
                 rnupp1 = new RadioButton();
                 rnupp1.Text = "Punane";
-                rnupp1.Location = new Point(200, 400);
+                rnupp1.AutoSize = true;
+                rnupp1.Location = new Point(440, 90);
                 rnupp1.CheckedChanged += Rnupp_CheckedChanged;
                 rnupp2 = new RadioButton();
                 rnupp2.Text = "Sinine";
-                rnupp2.Location = new Point(200, 450);
+                rnupp2.AutoSize = true;
+                rnupp2.Location = new Point(440, 120);
                 rnupp2.CheckedChanged += Rnupp_CheckedChanged;
                 Controls.Add(rnupp1);
                 Controls.Add(rnupp2);
@@ -185,8 +190,8 @@ namespace Naidis_IKTpv25_Windows_Forms
             {
 
                 tbox = new TextBox();
-                tbox.Location = new Point(200, 500);
-                tbox.Width = 200;
+                tbox.Location = new Point(200, 315);
+                tbox.Width = 220;
                 tbox.TextChanged += (s, arg) =>
                 {
                     Controls.Add(silt);
@@ -205,8 +210,8 @@ namespace Naidis_IKTpv25_Windows_Forms
             else if (e.Node.Text == "Vahekaardid")
             {
                 tabs = new TabControl();
-                tabs.Location = new Point(500, 100);
-                tabs.Size = new Size(400, 300);
+                tabs.Location = new Point(680, 200);
+                tabs.Size = new Size(440, 260);
                 tab1 = new TabPage("Techno+TLN");
                 System.Windows.Forms.WebBrowser brauser = new System.Windows.Forms.WebBrowser();
                 brauser.Dock = DockStyle.Fill;
@@ -294,7 +299,8 @@ namespace Naidis_IKTpv25_Windows_Forms
                 lb.Items.Add("Sinine");
                 lb.Items.Add("Kollane");
                 lb.Items.Add("Punane");
-                lb.Location = new Point(150, 50);
+                lb.Size = new Size(150, 90);
+                lb.Location = new Point(440, 160);
                 lb.SelectedIndexChanged += new EventHandler(Lb_SelectedIndexChanged);
                 Controls.Add(lb);
             }
@@ -303,9 +309,9 @@ namespace Naidis_IKTpv25_Windows_Forms
                 DataSet ds = new DataSet("XML fail"); // loeb faili
                 ds.ReadXml(@"..\..\menu.xml");
                 DataGridView dg = new DataGridView();
-                dg.Width = 490;
+                dg.Width = 440;
                 dg.Height = 150;
-                dg.Location = new Point(500, 400);
+                dg.Location = new Point(680, 470);
                 dg.AutoGenerateColumns = true;
                 dg.DataSource = ds;
                 dg.DataMember = "food";

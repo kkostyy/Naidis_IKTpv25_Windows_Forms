@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Naidis_IKTpv25_Windows_Forms</RootNamespace>
     <AssemblyName>Naidis_IKTpv25_Windows_Forms</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -54,6 +54,15 @@
       <DependentUpon>Avavorm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="Rakendused\PildiVaataja\PildiVaatajaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Rakendused\MathQuiz\MathQuizForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Rakendused\SarnasteMang\MatchingGameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Avavorm.resx">
       <DependentUpon>Avavorm.cs</DependentUpon>
@@ -84,6 +93,11 @@
   <ItemGroup>
     <Content Include="menu.xml" />
     <Content Include="Pildid\AI_bot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Rakendused\PildiVaataja\README.md" />
+    <None Include="Rakendused\MathQuiz\README.md" />
+    <None Include="Rakendused\SarnasteMang\README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

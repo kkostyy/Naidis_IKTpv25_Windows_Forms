@@ -139,6 +139,11 @@ namespace Naidis_IKTpv25_Windows_Forms
 
         private void Tree_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            // Kui SelectedNode pannakse koodis null-iks (vt allpool), tuleb AfterSelect
+            // uuesti käivitatud, aga seekord e.Node == null. Ilma selle kontrollita
+            // saame NullReferenceException'i ja edasised klikid hakkavad imelikult käituma.
+            if (e.Node == null) return;
+
             if (e.Node.Text == "Nupp")
             {
                 Controls.Add(nupp);
@@ -156,32 +161,40 @@ namespace Naidis_IKTpv25_Windows_Forms
             }
             else if (e.Node.Text == "Märkeruut")
             {
-                mruut1 = new CheckBox();
-                mruut1.Text = "Tee väiksemaks";
-                mruut1.AutoSize = true;
-                mruut1.Location = new Point(440, 15);
-                mruut1.CheckedChanged += Mruut_CheckedChanged;
-                mruut2 = new CheckBox();
-                mruut2.Text = "Näita pilt";
-                mruut2.AutoSize = true;
-                mruut2.Location = new Point(440, 45);
-                mruut2.CheckedChanged += Mruut2_CheckedChanged;
+                // Kui need on juba loodud, ei looda uusi (muidu tekivad vanade
+                // peale uued, kattuvad koopiad ja klõps ei tabaks enam õiget).
+                if (mruut1 == null)
+                {
+                    mruut1 = new CheckBox();
+                    mruut1.Text = "Tee väiksemaks";
+                    mruut1.AutoSize = true;
+                    mruut1.Location = new Point(440, 15);
+                    mruut1.CheckedChanged += Mruut_CheckedChanged;
+                    mruut2 = new CheckBox();
+                    mruut2.Text = "Näita pilt";
+                    mruut2.AutoSize = true;
+                    mruut2.Location = new Point(440, 45);
+                    mruut2.CheckedChanged += Mruut2_CheckedChanged;
+                }
                 Controls.Add(mruut1);
                 Controls.Add(mruut2);
                 tree.SelectedNode = null;
             }
             else if (e.Node.Text == "Radionupp")
             {
-                rnupp1 = new RadioButton();
-                rnupp1.Text = "Punane";
-                rnupp1.AutoSize = true;
-                rnupp1.Location = new Point(440, 90);
-                rnupp1.CheckedChanged += Rnupp_CheckedChanged;
-                rnupp2 = new RadioButton();
-                rnupp2.Text = "Sinine";
-                rnupp2.AutoSize = true;
-                rnupp2.Location = new Point(440, 120);
-                rnupp2.CheckedChanged += Rnupp_CheckedChanged;
+                if (rnupp1 == null)
+                {
+                    rnupp1 = new RadioButton();
+                    rnupp1.Text = "Punane";
+                    rnupp1.AutoSize = true;
+                    rnupp1.Location = new Point(440, 90);
+                    rnupp1.CheckedChanged += Rnupp_CheckedChanged;
+                    rnupp2 = new RadioButton();
+                    rnupp2.Text = "Sinine";
+                    rnupp2.AutoSize = true;
+                    rnupp2.Location = new Point(440, 120);
+                    rnupp2.CheckedChanged += Rnupp_CheckedChanged;
+                }
                 Controls.Add(rnupp1);
                 Controls.Add(rnupp2);
                 tree.SelectedNode = null;

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Naidis_IKTpv25_Windows_Forms")]
+[assembly: AssemblyTitle("Naidis_IKTpv25_WinForms_Berezevski")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TTHK")]
-[assembly: AssemblyProduct("Naidis_IKTpv25_Windows_Forms")]
+[assembly: AssemblyProduct("Naidis_IKTpv25_WinForms_Berezevski")]
 [assembly: AssemblyCopyright("Copyright © TTHK 2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("05a6c1ae-759c-463f-b94c-768f79933530")]
+[assembly: Guid("52727fe6-b5d6-442b-b907-5490ffebfda0")]
 
 // Version information for an assembly consists of the following four values:
 //

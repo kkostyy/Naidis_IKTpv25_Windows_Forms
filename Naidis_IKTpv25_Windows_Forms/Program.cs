@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Naidis_IKTpv25_Windows_Forms
+namespace Naidis_IKTpv25_WinForms_Berezevski
 {
     internal static class Program
     {
@@ -16,7 +16,7 @@ namespace Naidis_IKTpv25_Windows_Forms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Avavorm());
+            Application.Run(new AvaVorm());
         }
     }
 }

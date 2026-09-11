@@ -1,6 +1,6 @@
 ﻿namespace Naidis_IKTpv25_WinForms_Berezevski
 {
-    partial class AvaVorm
+    partial class Browser
     {
         /// <summary>
         /// Required designer variable.
@@ -37,4 +37,3 @@
         #endregion
     }
 }
-

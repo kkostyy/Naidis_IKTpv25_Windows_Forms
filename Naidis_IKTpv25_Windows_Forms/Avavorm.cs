@@ -1,13 +1,8 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;    
 
 namespace Naidis_IKTpv25_Windows_Forms
 {
@@ -28,12 +23,12 @@ namespace Naidis_IKTpv25_Windows_Forms
         {
             Height = 600;
             Width = 1000;
-            Text = "Naidis IKTpv25 Windows Forms";
+            Text= "Naidis IKTpv25 Windows Forms";
             tree = new TreeView();
             tree.Dock = DockStyle.Left;
             tree.AfterSelect += Tree_AfterSelect;
 
-            TreeNode tn = new TreeNode("Elemendid");
+            TreeNode tn=new TreeNode("Elemendid");
             tn.Nodes.Add(new TreeNode("Nupp"));
             tn.Nodes.Add(new TreeNode("Silt"));
             tn.Nodes.Add(new TreeNode("Pilt"));
@@ -48,7 +43,7 @@ namespace Naidis_IKTpv25_Windows_Forms
             tree.Nodes.Add(tn);
             //nupp, silt ja pilt
             nupp = new Button();
-            nupp.Text = "Vajuta mind";
+            nupp.Text ="Vajuta mind";
             nupp.Location = new Point(300, 100);
             nupp.Height = 50;
             nupp.Width = 100;
@@ -57,8 +52,8 @@ namespace Naidis_IKTpv25_Windows_Forms
             silt = new Label();
             silt.Text = "See on silt";
             silt.Location = new Point(300, 150);
-            silt.Size = new Size(200, 30);
-            silt.Font = new Font("Arial", 16, FontStyle.Bold);
+            silt.Size= new Size(200, 30);
+            silt.Font= new Font("Arial", 16, FontStyle.Bold);
             silt.AutoSize = true;
             silt.MouseLeave += Silt_MouseLeave;
             silt.MouseHover += Silt_MouseHover;
@@ -75,8 +70,8 @@ namespace Naidis_IKTpv25_Windows_Forms
 
         private void Pilt_DoubleClick(object sender, EventArgs e)
         {
-            Size väike = new Size(200, 200);
-            Size suur = new Size(400, 400);
+            Size väike=new Size(200, 200);
+            Size suur=new Size(400, 400);
             if (pilt.Size == suur)
                 pilt.Size = väike;
             else
@@ -93,12 +88,12 @@ namespace Naidis_IKTpv25_Windows_Forms
         {
             silt.BorderStyle = BorderStyle.None;
             silt.BackColor = Color.Gray;
-
+        
         }
 
         private void Tree_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (e.Node.Text == "Nupp")
+            if(e.Node.Text == "Nupp")
             {
                 Controls.Add(nupp);
                 tree.SelectedNode = null;
@@ -143,20 +138,20 @@ namespace Naidis_IKTpv25_Windows_Forms
             }
             else if (e.Node.Text == "Tekstiväli")
             {
-
+                
                 tbox = new TextBox();
                 tbox.Location = new Point(200, 500);
                 tbox.Width = 200;
-                tbox.TextChanged += (s, arg) =>
+                tbox.TextChanged += (s,arg) => 
                 {
                     Controls.Add(silt);
-                    if (tbox.Text.Length > 0)
+                    if (tbox.Text.Length>0)
                     {
                         silt.Text = tbox.Text;
                     }
-                    if (tbox.Text.Length == 0)
+                    if (tbox.Text.Length==0)
                     {
-                        silt.Text = "See on silt";
+                      silt.Text = "See on silt";
                     }
                 };
                 Controls.Add(tbox);
@@ -174,8 +169,13 @@ namespace Naidis_IKTpv25_Windows_Forms
                 brauser.Url = new Uri("https://www.techno.ee/");
                 tab1.Controls.Add(brauser);
 
-                tab2 = new TabPage("Tee ise");
-                // Lisame sisu teisele vahekaardile
+                tab2 = new TabPage("Пасьянс косынка");
+                WebBrowser brauser2 = new WebBrowser();
+                brauser2.Dock = DockStyle.Fill;
+                brauser2.ScriptErrorsSuppressed = true;
+                brauser2.Url = new Uri("https://razlozhi.ru/patience-sol");
+                tab2.Controls.Add(brauser2);
+                //tab2.DoubleClick += AvaBrauser;
 
                 tab3 = new TabPage("+");
                 tabs.SelectedIndexChanged += (s, arg) =>
@@ -204,33 +204,33 @@ namespace Naidis_IKTpv25_Windows_Forms
                         {
                             uuskaardinimi = uuskaardinimi.Substring(4); // Eemaldame "www." algusest
                         }
-                        int pos = uuskaardinimi.LastIndexOf('.');
-                        if (pos > 0)
+                        int pos=uuskaardinimi.LastIndexOf('.');
+                        if (pos>0)
                         {
                             uuskaardinimi = uuskaardinimi.Substring(0, pos).ToUpper(); // Eemaldame domeeni lõpu
                         }
                         // 3. Kinnituse küsimine
                         var vastus = MessageBox.Show(
-                                $"Kas soovid lisada uue vahekaardi nimega '{uuskaardinimi}'?",
-                                "Kinnita",
+                                $"Kas soovid lisada uue vahekaardi nimega '{uuskaardinimi}'?", 
+                                "Kinnita", 
                                 MessageBoxButtons.YesNo);
-                        if (vastus == DialogResult.No)
-                        {
-                            tabs.SelectedTab = tab1;
-                            return;
-                        }
-                        TabPage uusVahekaart = new TabPage(uuskaardinimi);
-                        brauser = new WebBrowser();
-                        brauser.Dock = DockStyle.Fill;
-                        brauser.ScriptErrorsSuppressed = true; // Peidab IE skriptitõrgete
-                        try
-                        {
-                            brauser.Url = new Uri(veebiaadress);
-                        }
-                        catch (UriFormatException)
-                        {
-                            MessageBox.Show("Vigane veebiaadress! Avatakse tühi leht.");
-                        }
+                            if (vastus == DialogResult.No)
+                            {
+                                tabs.SelectedTab = tab1;
+                                return;
+                            }
+                                TabPage uusVahekaart = new TabPage(uuskaardinimi); 
+                                brauser = new WebBrowser();
+                                brauser.Dock = DockStyle.Fill;
+                                brauser.ScriptErrorsSuppressed = true; // Peidab IE skriptitõrgete
+                            try
+                            {
+                                brauser.Url = new Uri(veebiaadress);
+                            }
+                            catch (UriFormatException)
+                            {
+                                MessageBox.Show("Vigane veebiaadress! Avatakse tühi leht.");
+                            }
                         uusVahekaart.Controls.Add(brauser);
                         tabs.TabPages.Insert(tabs.TabCount - 1, uusVahekaart);
                         tabs.SelectedTab = uusVahekaart;
@@ -253,7 +253,7 @@ namespace Naidis_IKTpv25_Windows_Forms
                 lb.SelectedIndexChanged += new EventHandler(Lb_SelectedIndexChanged);
                 Controls.Add(lb);
             }
-            else if (e.Node.Text == "DataGridView")
+            else if (e.Node.Text== "DataGridView")
             {
                 DataSet ds = new DataSet("XML fail"); // loeb faili
                 ds.ReadXml(@"..\..\menu.xml");
@@ -266,7 +266,7 @@ namespace Naidis_IKTpv25_Windows_Forms
                 dg.DataMember = "food";
                 Controls.Add(dg);
             }
-            else if (e.Node.Text == "MainMenu")
+            else if(e.Node.Text == "MainMenu")
             {
                 MainMenu menu = new MainMenu();
                 MenuItem menuFile = new MenuItem("File");
@@ -278,7 +278,7 @@ namespace Naidis_IKTpv25_Windows_Forms
                 menuFile.MenuItems.Add(menuClearTabs);
                 MenuItem menuExit = new MenuItem("&Exit", new EventHandler(menuFile_Exit), Shortcut.CtrlQ);
                 menuFile.MenuItems.Add(menuExit);
-
+                
                 menu.MenuItems.Add(menuFile);
                 Menu = menu;
             }
@@ -287,7 +287,7 @@ namespace Naidis_IKTpv25_Windows_Forms
         private void menuFile_ClearTabs(object sender, EventArgs e)
         {
             tabs.Hide();
-
+            
         }
         private void menuFile_Clear(object sender, EventArgs e)
         {
@@ -326,9 +326,9 @@ namespace Naidis_IKTpv25_Windows_Forms
 
         private void Rnupp_CheckedChanged(object sender, EventArgs e)
         {
-            RadioButton nupp = sender as RadioButton;
+            RadioButton nupp= sender as RadioButton;
             if (nupp == rnupp1 && nupp.Checked)
-            {
+            { 
                 BackColor = Color.Red;
             }
             else if (nupp == rnupp2 && nupp.Checked)
@@ -354,8 +354,8 @@ namespace Naidis_IKTpv25_Windows_Forms
         private void Mruut_CheckedChanged(object sender, EventArgs e)
         {
             if (mruut1.Checked)
-            {
-                Size = new Size(350, 500);
+            { 
+                Size=new Size(350, 500);
                 mruut1.Text = "Tee suuremaks";
             }
             else
@@ -365,6 +365,6 @@ namespace Naidis_IKTpv25_Windows_Forms
             }
         }
 
-
+        
     }
 }

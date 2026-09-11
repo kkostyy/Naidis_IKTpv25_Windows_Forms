@@ -271,8 +271,6 @@ namespace Naidis_IKTpv25_Windows_Forms
                 {
                     TabPage vahekaart = tabs.TabPages[i];
 
-                    //WebBrowser browserData = vahekaart.Controls[0] as WebBrowser;
-                    //MessageBox.Show(browserData.Url.ToString());
                     browser.tabs.TabPages.Insert(browser.tabs.TabCount - 1, vahekaart);
 
                     break;

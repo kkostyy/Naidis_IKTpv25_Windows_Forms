@@ -43,8 +43,15 @@ namespace Naidis_IKTpv25_Windows_Forms
         private const int Veerud = 4;
         private const int RuuduSuurus = 75;
 
-        // Wingdings fondi tähemärgid kuvatakse väikeste ikoonidena (lind, jalgratas, silm jne)
-        private static readonly char[] Sumbolid = { 'J', ')', '&', '2', '~', '¡', 'Q', 'S' };
+        // Wingdings fondi tähemärgid kuvatakse väikeste ikoonidena (naeratus, telefon, lennuk jne).
+        // MÄRKUS: '¡' ja '&'/'2' jätsime siit teadlikult välja - Windows Forms rakendab
+        // Wingdings-stiilis "symbol charset" fontidele automaatse ikooni-teisenduse
+        // usaldusväärselt ainult põhilise ASCII vahemiku (kood 0x21-0x7E) tähemärkidele.
+        // Sellest vahemikust väljas olevad tähed (nt '¡', kood 161) või mõned selle
+        // vahemiku sees olevad tähed ei pruugi konkreetses Windowsi seadistuses üldse
+        // ikooni kuvada (kaart näib "läbipaistev"/tühi). Valitud on ainult tähemärgid,
+        // mis Wingdingsis annavad kindlalt nähtava ja üksteisest selgelt eristuva ikooni.
+        private static readonly char[] Sumbolid = { 'J', ')', 'Q', 'S', '~', '!', 'C', 'N' };
         private static readonly Random rnd = new Random();
 
         private readonly List<Mangukaart> kaardid = new List<Mangukaart>();
@@ -137,8 +144,12 @@ namespace Naidis_IKTpv25_Windows_Forms
                 // Paar leitud
                 esimeneValik.OnPaaritud = true;
                 kaart.OnPaaritud = true;
-                esimeneValik.Nupp.Enabled = false;
-                kaart.Nupp.Enabled = false;
+                // MÄRKUS: FlatStyle.Flat nupu Enabled = false muudab nupu Windowsis
+                // "läbipaistvaks"/kahvatuks, kuna süsteem joonistab keelatud Flat-nupu
+                // oma stiiliga ega arvesta enam BackColor'it. Klikke juba blokeerib
+                // "kaart.OnPaaritud" kontroll ülalpool, seega Enabled=false pole vajalik.
+                esimeneValik.Nupp.TabStop = false;
+                kaart.Nupp.TabStop = false;
                 esimeneValik.Nupp.BackColor = Color.LightGreen;
                 kaart.Nupp.BackColor = Color.LightGreen;
 

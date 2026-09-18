@@ -4,10 +4,7 @@ using System.Windows.Forms;
 
 namespace Naidis_IKTpv25_Windows_Forms
 {
-    /// <summary>
-    /// Pildi vaatamise programm ("Picture Viewer").
-    /// Kõik juhtelemendid luuakse koodis konstruktoris - Toolbox'i ei kasutata.
-    /// </summary>
+
     public class PildiVaatajaForm : Form
     {
         private readonly PictureBox pictureBox;
@@ -18,7 +15,6 @@ namespace Naidis_IKTpv25_Windows_Forms
         private readonly Button closeButton;
         private readonly Panel bottomPanel;
 
-        // Hoiame originaalpilti alles, et "Sketch" märkeruudu lahti tehes saaks värvipildi tagasi
         private Image originaalPilt;
 
         public PildiVaatajaForm()
@@ -29,7 +25,6 @@ namespace Naidis_IKTpv25_Windows_Forms
             MinimumSize = new Size(320, 260);
             StartPosition = FormStartPosition.CenterParent;
 
-            // Pildi kuvamise ala täidab enamuse aknast
             pictureBox = new PictureBox
             {
                 Dock = DockStyle.Fill,
@@ -37,7 +32,6 @@ namespace Naidis_IKTpv25_Windows_Forms
                 SizeMode = PictureBoxSizeMode.Zoom
             };
 
-            // Alumine riba märkeruudu ja nuppude jaoks
             bottomPanel = new Panel
             {
                 Dock = DockStyle.Bottom,
@@ -68,7 +62,6 @@ namespace Naidis_IKTpv25_Windows_Forms
             bottomPanel.Controls.Add(clearPictureButton);
             bottomPanel.Controls.Add(closeButton);
 
-            // PictureBox lisatakse Fill-ina esimesena, siis Dock=Bottom paneel jääb alumisse serva
             Controls.Add(pictureBox);
             Controls.Add(bottomPanel);
 
@@ -76,9 +69,7 @@ namespace Naidis_IKTpv25_Windows_Forms
             PaigutaNupud();
         }
 
-        /// <summary>
-        /// Paigutab nupud alumise paneeli paremasse serva nii, et aken oleks vabalt suurust muudetav.
-        /// </summary>
+        
         private void PaigutaNupud()
         {
             int right = bottomPanel.ClientSize.Width - 8;
@@ -133,9 +124,7 @@ namespace Naidis_IKTpv25_Windows_Forms
             sketchCheckBox.Checked = false;
         }
 
-        /// <summary>
-        /// "Sketch" märkeruut näitab pilti mustvalgena (lihtne visandi-efekt).
-        /// </summary>
+        
         private void SketchCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (originaalPilt == null)
@@ -159,10 +148,7 @@ namespace Naidis_IKTpv25_Windows_Forms
         }
     }
 
-    /// <summary>
-    /// Abiklass pildi töötlemiseks. Eraldi klass hoiab vormi koodi puhtana
-    /// (OOP põhimõte: single responsibility - iga klass teeb üht asja).
-    /// </summary>
+    
     public static class PildiTootlus
     {
         public static Bitmap MuudaHalltoonideks(Bitmap lahtepilt)

@@ -4,11 +4,7 @@ using System.Windows.Forms;
 
 namespace Naidis_IKTpv25_Windows_Forms
 {
-    /// <summary>
-    /// Üks matemaatiline ülesanne (nt "26 + 34 = ?").
-    /// Eraldi klass vastutab ülesande genereerimise ja kontrollimise eest
-    /// (OOP põhimõte: encapsulation - andmed ja loogika on koos).
-    /// </summary>
+    
     public class MatemaatikaUlesanne
     {
         private static readonly Random rnd = new Random();
@@ -36,7 +32,7 @@ namespace Naidis_IKTpv25_Windows_Forms
 
                 case '-':
                     Arv1 = rnd.Next(20, 91);
-                    Arv2 = rnd.Next(1, Arv1);       // tagab, et tulemus ei lähe negatiivseks
+                    Arv2 = rnd.Next(1, Arv1);       
                     OigeVastus = Arv1 - Arv2;
                     break;
 
@@ -47,9 +43,9 @@ namespace Naidis_IKTpv25_Windows_Forms
                     break;
 
                 case '÷':
-                    Arv2 = rnd.Next(2, 10);          // jagaja
-                    OigeVastus = rnd.Next(2, 10);     // jagatis
-                    Arv1 = Arv2 * OigeVastus;         // jagatav valitakse nii, et jaguks täpselt
+                    Arv2 = rnd.Next(2, 10);        
+                    OigeVastus = rnd.Next(2, 10);    
+                    Arv1 = Arv2 * OigeVastus;       
                     break;
 
                 default:
@@ -60,13 +56,10 @@ namespace Naidis_IKTpv25_Windows_Forms
         public bool KontrolliVastust(int vastus) => vastus == OigeVastus;
     }
 
-    /// <summary>
-    /// Matemaatiline äraarvamismäng ("Math Quiz").
-    /// Kõik juhtelemendid luuakse koodis - Toolbox'i ei kasutata.
-    /// </summary>
+    
     public class MathQuizForm : Form
     {
-        private const int AlgusAeg = 30; // sekundites
+        private const int AlgusAeg = 30; 
 
         private readonly Label timeLeftCaption;
         private readonly TextBox timeLeftBox;

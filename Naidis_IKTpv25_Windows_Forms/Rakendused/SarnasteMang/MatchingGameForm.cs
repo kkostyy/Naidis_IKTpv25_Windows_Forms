@@ -5,10 +5,7 @@ using System.Windows.Forms;
 
 namespace Naidis_IKTpv25_Windows_Forms
 {
-    /// <summary>
-    /// Üks mängukaart - seob kokku peidetud sümboli ja seda kuvava nupu.
-    /// Eraldi klass, mis hoiab nupu ja tema oleku koos (OOP: encapsulation).
-    /// </summary>
+    
     public class Mangukaart
     {
         public char Sumbol { get; }
@@ -33,24 +30,14 @@ namespace Naidis_IKTpv25_Windows_Forms
         }
     }
 
-    /// <summary>
-    /// Sarnaste piltide (sümbolite) leidmise mäng ("Matching Game").
-    /// 4x4 ruudustik, kokku 8 sümbolipaari. Kõik juhtelemendid luuakse koodis.
-    /// </summary>
+    
     public class MatchingGameForm : Form
     {
         private const int Read = 4;
         private const int Veerud = 4;
         private const int RuuduSuurus = 75;
 
-        // Wingdings fondi tähemärgid kuvatakse väikeste ikoonidena (naeratus, telefon, lennuk jne).
-        // MÄRKUS: '¡' ja '&'/'2' jätsime siit teadlikult välja - Windows Forms rakendab
-        // Wingdings-stiilis "symbol charset" fontidele automaatse ikooni-teisenduse
-        // usaldusväärselt ainult põhilise ASCII vahemiku (kood 0x21-0x7E) tähemärkidele.
-        // Sellest vahemikust väljas olevad tähed (nt '¡', kood 161) või mõned selle
-        // vahemiku sees olevad tähed ei pruugi konkreetses Windowsi seadistuses üldse
-        // ikooni kuvada (kaart näib "läbipaistev"/tühi). Valitud on ainult tähemärgid,
-        // mis Wingdingsis annavad kindlalt nähtava ja üksteisest selgelt eristuva ikooni.
+        
         private static readonly char[] Sumbolid = { 'J', ')', 'Q', 'S', '~', '!', 'C', 'N' };
         private static readonly Random rnd = new Random();
 
@@ -78,7 +65,6 @@ namespace Naidis_IKTpv25_Windows_Forms
 
         private void LooMangulaud()
         {
-            // Iga sümbol lisatakse kaks korda, siis kaardipakk segatakse läbi
             List<char> paketiSumbolid = new List<char>();
             foreach (char sumbol in Sumbolid)
             {
@@ -116,7 +102,6 @@ namespace Naidis_IKTpv25_Windows_Forms
 
         private static void Segamine(List<char> nimekiri)
         {
-            // Fisher-Yates segamisalgoritm
             for (int n = nimekiri.Count - 1; n > 0; n--)
             {
                 int k = rnd.Next(n + 1);
@@ -141,13 +126,9 @@ namespace Naidis_IKTpv25_Windows_Forms
 
             if (esimeneValik.Sumbol == kaart.Sumbol)
             {
-                // Paar leitud
                 esimeneValik.OnPaaritud = true;
                 kaart.OnPaaritud = true;
-                // MÄRKUS: FlatStyle.Flat nupu Enabled = false muudab nupu Windowsis
-                // "läbipaistvaks"/kahvatuks, kuna süsteem joonistab keelatud Flat-nupu
-                // oma stiiliga ega arvesta enam BackColor'it. Klikke juba blokeerib
-                // "kaart.OnPaaritud" kontroll ülalpool, seega Enabled=false pole vajalik.
+                
                 esimeneValik.Nupp.TabStop = false;
                 kaart.Nupp.TabStop = false;
                 esimeneValik.Nupp.BackColor = Color.LightGreen;
@@ -164,7 +145,6 @@ namespace Naidis_IKTpv25_Windows_Forms
             }
             else
             {
-                // Vale paar - peidame mõlemad kaardid väikese viivitusega, et kasutaja jõuaks näha
                 teineValik = kaart;
                 ootabPeitmist = true;
                 peitmiseTimer.Start();
